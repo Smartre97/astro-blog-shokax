@@ -1,10 +1,14 @@
 name: Deploy to GitHub Pages
 
 on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
   push:
-    branches: [ main ]
+    branches: [main]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
+# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
   pages: write
@@ -14,35 +18,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      # 关键：安装系统依赖，让字体库能工作（但后续我们还会 mock，双重保险）
-      - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y libffi-dev libfontconfig1
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
-      - name: Install dependencies
-        run: bun install
-
-      # 核心：mock cn-font-split 使其不报错
-      - name: Mock cn-font-split
-        run: |
-          rm -rf node_modules/cn-font-split
-          mkdir -p node_modules/cn-font-split
-          echo "module.exports = {};" > node_modules/cn-font-split/index.js
-
-      - name: Build site
-        run: bun run build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
+      - name: Checkout your repository using git
+        uses: actions/checkout@v5
+      - name: Install, build, and upload your site
+        uses: withastro/action@v4
 
   deploy:
     needs: build
