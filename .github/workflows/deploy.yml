@@ -12,10 +12,10 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 20
+          bun-version: latest
           cache: 'bun'          # 如果您用 npm；如果用 bun 请调整
 
       - name: Install dependencies
