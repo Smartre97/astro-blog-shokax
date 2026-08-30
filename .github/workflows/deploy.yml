@@ -14,7 +14,7 @@ jobs:
 
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y libffi-dev libfontconfig1
-        
+
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -31,7 +31,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           # 目标仓库：<用户名>.github.io
-          external_repository: Smartre/Smartre97.github.io
+          external_repository: Smartre97/Smartre97.github.io
           # 使用刚才设置的 token
           personal_token: ${{ secrets.DEPLOY_TOKEN }}
           # 推送的源文件夹（构建产物）
