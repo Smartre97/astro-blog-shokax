@@ -1,0 +1,39 @@
+name: Deploy to GitHub Pages (User Site)
+
+on:
+  push:
+    branches: [ main ]          # 当您推送 main 分支时触发
+  workflow_dispatch:           # 允许手动触发
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'bun'          # 如果您用 npm；如果用 bun 请调整
+
+      - name: Install dependencies
+        run: bun install             # 或 bun install
+
+      - name: Build site
+        run: bun run build      # 或 bun run build
+
+      - name: Deploy to <username>.github.io
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # 目标仓库：<用户名>.github.io
+          external_repository: Smartre/Smartre97.github.io
+          # 使用刚才设置的 token
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          # 推送的源文件夹（构建产物）
+          publish_dir: ./dist
+          # 目标分支（部署仓库的分支）
+          publish_branch: main
+          # 保留历史记录（可选，如果您想保留部署仓库的历史）
+          keep_files: false     # 设为 false 会完全覆盖，保持纯净
