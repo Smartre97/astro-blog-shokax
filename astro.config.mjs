@@ -107,7 +107,6 @@ if (themeConfig.diagnostics?.suppressFsWatcherMaxListenersWarning !== false) {
 // https://astro.build/config
 export default defineConfig({
   site: "https://smartre97.github.io",
-  base: '/smartre97.github.io',
   trailingSlash: "always",
   build: {
     format: "directory",
