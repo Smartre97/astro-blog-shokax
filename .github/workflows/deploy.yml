@@ -16,7 +16,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-          cache: 'bun'          # 如果您用 npm；如果用 bun 请调整
+          # cache: 'bun'          # 如果您用 npm；如果用 bun 请调整
 
       - name: Install dependencies
         run: bun install             # 或 bun install
